@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="http://openlayers.org/en/v3.0.0/css/ol.css" type="text/css">
+    <style>
+          #map {
+        height: 550px;
+        width: 82%;
+      }
+		#topdiv {
+	    height: 46px;
+        width: 101%;
+			background-color:#DDDDDD;
+		background-image: url("bicycle.jpg");
+		background-repeat: no-repeat;
+		background-position: 52%;
+			
+		background-size: contain;
+				
+			
+		}
+		
+		#leftdiv {
+			height: 580px;
+			width: 19%;
+			margin:0px;
+			float:left ;
+			background:#F6E3CE;
+			
+			
+		}
+			
+		#infor {
+			height: 50px;
+			width: 100%;
+			
+			float:left ;
+			background:#FF6633;
+			
+			
+		}
+		
+		#information{
+    background-color: #FF9900; 
+    padding: 2px 4px;   
+    
+    
+}
+		
+			
+		#buttons{
+			width:100%;
+    background: #FFBB7D; 
+    padding: 2px 4px;   
+    
+    
+}
+    </style>
+    <script src="http://openlayers.org/en/v3.0.0/build/ol.js" type="text/javascript"></script>
+    <title>Routing Service</title>
+  </head>
+	<body> <div id ="topdiv"> 
+         <h2>Routing Service In Karlsruhe &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i><font size="2" color="660000">Take The Shortest Rout. &nbsp; Save Time and Energy</font></i></h2>
+		  
+       <div id ="leftdiv"> 
+		   <p> Click on Start and Destination Point </p><br><br><br><br>
+		   <p> Click the Reset Button to Resume</p><br><br><br>
+		  <br>
+		 
+		   
+		   <button id ="information" onClick = "window.open('bicycleInfo.html');"> <font size="3" color="blue"><u>Information & Services </u></font> </button>
+		    <div ></div>
+		   <br><br><br><br> <br><br><br><br>
+		    <button id="clear">reset</button>
+		  
+        </div>
+	  <div id= "buttons">
+	   <button id="car" onClick = "location.href='myrood.html'">car</button>
+	  <button id="bicycle"  onClick = "location.href='bicycle.html'">bicycle</button>
+	  <button id="footpath" onClick="parent.location='footway.html'">footpath</button>
+	  </div>
+    <div id="map" class="map"></div>
+   
+    <div id="responseText"> </div>
+    
+    <script type="text/javascript">
+      var map = new ol.Map({
+        target: 'map',
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.MapQuest({layer: 'osm'})
+          })
+        ],
+        view: new ol.View({
+          center:[940000.000447909, 6276800.057118396],//940000.000447909, 6276800.057118396
+          zoom: 14
+        })
+      });
+      
+      var params = {
+	  LAYERS: 'opensource2:mybicyle',
+	  FORMAT: 'image/png'  
+};
+
+// The "start" and "destination" features.
+var startPoint = new ol.Feature();
+var destPoint = new ol.Feature();
+
+// The vector layer used to display the "start" and "destination" features.
+var vectorLayer = new ol.layer.Vector({
+  source: new ol.source.Vector({
+    features: [startPoint, destPoint]//TRYING MORE FREATURES TO HAVE MORE POINTS TO JOIN TO THE ROAD 
+  })
+});
+
+
+
+map.addLayer(vectorLayer);
+
+
+
+
+// A transform function to convert coordinates from EPSG:3857
+// to EPSG:4326.
+var transform = ol.proj.getTransform('EPSG:3857', 'EPSG:4326');
+
+// Register a map click listener.
+map.on('click', function(event) {
+  if (startPoint.getGeometry() == null) {
+    // First click.
+    startPoint.setGeometry(new ol.geom.Point(event.coordinate));// be the events coordinate as geom
+  } else if (destPoint.getGeometry() == null) {
+    // Second click.
+    destPoint.setGeometry(new ol.geom.Point(event.coordinate));
+    // Transform the coordinates from the map projection (EPSG:3857)
+    // to the server projection (EPSG:4326).
+    var startCoord =  transform(startPoint.getGeometry().getCoordinates());
+    var destCoord =    transform(destPoint.getGeometry().getCoordinates());
+    var viewparams = [
+      'x1:' + startCoord[0], 'y1:' + startCoord[1],
+      'x2:' + destCoord[0], 'y2:' + destCoord[1]
+    ];
+    params.viewparams = viewparams.join(';');// join the two vector lines
+    result = new ol.layer.Image({
+      source: new ol.source.ImageWMS({
+        url: 'http://localhost:8082/geoserver/opensource2/wms',
+        params: params
+      })
+    });
+    map.addLayer(result);
+	  
+  }
+});
+/*SELECT ST_MakeLine(route.geom) AS geom, sum(route.1) AS length FROM (
+SELECT geom, ST_length(geom)AS 1 FROM pgr_fromAtoB('road', %x1%, %y1%, %x2%, %y2%) ORDER BY seq) AS route
+
+
+
+SELECT ST_MakeLine(route.geom) AS geom, sum(route.l) AS length FROM (
+SELECT geom, ST_length(ST_transform(geom,32632))AS l FROM pgr_fromAtoB('road', %x1%, %y1%, %x2%, %y2%) ORDER BY seq) AS route
+
+*/
+var clearButton = document.getElementById('clear');
+clearButton.addEventListener('click', function(event) {
+  // Reset the "start" and "destination" features.
+  startPoint.setGeometry(null);
+  destPoint.setGeometry(null);
+  // Remove the result layer.
+  map.removeLayer(result);
+});
+
+    </script>
+  </body>
+</html>

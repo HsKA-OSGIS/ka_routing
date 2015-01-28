@@ -1,0 +1,287 @@
+<html>
+  <head><title>OpenLayers Marker Popups</title></head>
+  <body>
+  <div id="mapdiv"></div>
+  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+  <script>
+    map = new OpenLayers.Map("mapdiv");
+    map.addLayer(new OpenLayers.Layer.OSM());
+    
+    epsg4326 =  new OpenLayers.Projection("EPSG:4326"); //WGS 1984 projection
+    projectTo = map.getProjectionObject(); //The map projection (Spherical Mercator)
+   
+    var lonLat = new OpenLayers.LonLat(8.404297,49.013118 ).transform(epsg4326, projectTo);
+          
+    
+    var zoom=14;
+    map.setCenter (lonLat, zoom);
+
+    var vectorLayer = new OpenLayers.Layer.Vector("Overlay");
+    
+    // Define markers as "features" of the vector layer:
+    //first marker1
+	//hobbies
+	  var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point( 8.404034, 49.013544).transform( epsg4326, projectTo),
+            {description:'Schloss Karlsruhe<br> <img  src = "schl.jpg" style = "width:300px; height:230px"><br><a href="http://www.karlsruhe-tourismus.de/Media/Attraktionen/Schloss-Karlsruhe" target="_blank"> home page</a>'} ,
+            {externalGraphic: 'castle.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+    // 2
+    var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point( 8.400503, 49.007552).transform(epsg4326, projectTo),
+            {description:'Staatliches Museum fuer Naturkunde Karlsruhe<br> <img  src = "musuem.jpg" style = "width:300px; height:230px"><br><a href="http://www.smnk.de/" target="_blank"> home page</a>'} ,
+            {externalGraphic: 'museum.jpeg', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+  //3
+    var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point( 8.407021, 49.004536).transform(epsg4326, projectTo),
+            {description:'Badisches Staatstheater Karlsruhe <br> <img  src = "theater.jpg" style = "width:300px; height:230px"><br><a href="http://www.staatstheater.karlsruhe.de/karten/sitzplan_grosses_haus/" target="_blank"> home page</a>'} ,
+            {externalGraphic: 'theater.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	
+	//scholees garten
+	  
+	  var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.402275, 49.015673).transform(epsg4326, projectTo),
+            {description:'Schlossgarten <br> <img  src = "schloss.jpg" style = "width:300px; height:230px"><br>'} ,
+            {externalGraphic: 'schlosslogo.jpg', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	//messe-karlsruhe
+	var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point( 8.400385, 49.002418).transform(epsg4326, projectTo),
+            {description:'Messe Karlsruhe <br> <img  src = "messe.jpg" style = "width:300px; height:230px"><br><a href="http://www.messe-karlsruhe.de/messe_karlsruhe/index.php" target="_blank"> home page</a>'} ,
+            {externalGraphic: 'logo.messe.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	//schau Burg
+	
+	var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point( 8.408089, 49.003169).transform(epsg4326, projectTo),
+            {description:'Schauburg Karlsruhe <br> <img  src = "schauburg.jpg" style = "width:300px; height:230px"><br><a href="http://www.schauburg.de/" target="_blank"> home page</a>'} ,
+            {externalGraphic: 'shauburglogo.jpg', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	
+	//botanische garten
+	
+	var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point( 8.399786, 49.011925).transform(epsg4326, projectTo),
+            {description:'Botanischer Garten Karlsruhe <br> <img  src = "botanisch.jpg" style = "width:300px; height:230px"><br><a href="http://www.botanischer-garten-karlsruhe.de/" target="_blank"> home page</a>'} ,
+            {externalGraphic: 'botanlogo.jpg', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+
+	//passa garten
+	
+	var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.413240, 49.015191).transform(epsg4326, projectTo),
+            {description:'Fasanen Garten Karlsruhe <br> <img  src = "fasanen.jpg" style = "width:300px; height:230px"><br><a href="https://plus.google.com/115897960426838855952/about?gl=de&hl=en" target="_blank"> home page</a>'} ,
+            {externalGraphic: 'fasanlogo.jpg', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	
+	
+
+   //4....ns
+	  //tram stop markers start here
+	  var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point( 8.383494,49.010448).transform(epsg4326, projectTo),
+            {description:'Muehlburger Tor<br> S1-S11, S2 S5'} ,
+            {externalGraphic: 'Haltestelle.jpg', graphicHeight: 18, graphicWidth: 13, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point( 8.417746,49.009139).transform(epsg4326, projectTo),
+            {description:'Mühlburger Tor<br> S1-S11, S2 S5'} ,
+            {externalGraphic: 'Haltestelle.jpg', graphicHeight: 18, graphicWidth: 13, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	  
+	var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.375219, 49.010944).transform(epsg4326, projectTo),
+            {description:'Yorckstrasse<br> S1-S11, S2, S5'} ,
+            {externalGraphic: 'Haltestelle.jpg', graphicHeight: 18, graphicWidth: 13, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+  //Europaplatz
+	  var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point( 8.393834,49.010043).transform(epsg4326, projectTo),
+            {description:'Europaplatz <br> S1-S11, S2, S5'} ,
+            {externalGraphic: 'Haltestelle.jpg', graphicHeight: 18, graphicWidth: 13, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point( 8.398801,49.009790).transform(epsg4326, projectTo),
+            {description:'Herrenstrasse <br> S1-S11, S2, S5'} ,
+            {externalGraphic: 'Haltestelle.jpg', graphicHeight: 18, graphicWidth: 13, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	 //marktplatz
+	  
+	  var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.403994, 49.009199).transform(epsg4326, projectTo),
+            {description:'Marktplatz <br> S1-S11, S4, S41'} ,
+            {externalGraphic: 'Haltestelle.jpg', graphicHeight: 18, graphicWidth: 13, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	  //Kronenplatz
+		var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.409144 ,49.009396).transform(epsg4326, projectTo),
+            {description:'Kronenplatz <br> S2, S4, S5'} ,
+            {externalGraphic: 'Haltestelle.jpg', graphicHeight: 18, graphicWidth: 13, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+		//durlach
+		var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.417780, 49.009023).transform(epsg4326, projectTo),
+            {description:'Durlacher Tor <br> S2, S4, S5'} ,
+            {externalGraphic: 'Haltestelle.jpg', graphicHeight: 18, graphicWidth: 13, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	
+		//durlach
+		var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.441735, 49.004409).transform(epsg4326, projectTo),
+            {description:'Weinweg <br> 1,2, S4, S5'} ,
+            {externalGraphic: 'Haltestelle.jpg', graphicHeight: 18, graphicWidth: 13, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+		//augarten
+		var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.402689, 49.000104).transform(epsg4326, projectTo),
+            {description:'Augartenstrasse <br> 2, S4, S41,S11'} ,
+            {externalGraphic: 'Haltestelle.jpg', graphicHeight: 18, graphicWidth: 13, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	  //Poststrasse
+		var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.403633, 48.995317).transform(epsg4326, projectTo),
+            {description:'Poststrasse <br> 2,3, S4, S41,S11,S1'} ,
+            {externalGraphic: 'Haltestelle.jpg', graphicHeight: 18, graphicWidth: 13, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+//Mathystrasse
+		var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.393805, 49.002779).transform(epsg4326, projectTo),
+            {description:'Poststrasse <br> 2,4, 5'} ,
+            {externalGraphic: 'Haltestelle.jpg', graphicHeight: 18, graphicWidth: 13, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	//barbarossaplatz
+		var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.389857, 48.994867).transform(epsg4326, projectTo),
+            {description:'Barbarossaplatz <br> 2'} ,
+            {externalGraphic: 'Haltestelle.jpg', graphicHeight: 18, graphicWidth: 13, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	//Eckenerstrasse
+		var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.349688, 49.005425).transform(epsg4326, projectTo),
+            {description:'Eckenerstrasse <br> 6,S2'} ,
+            {externalGraphic: 'Haltestelle.jpg', graphicHeight: 18, graphicWidth: 13, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	
+	//bike
+	
+	
+	var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.403011, 49.011571).transform(epsg4326, projectTo),
+            {description:'Fahrrad Strebel<br><a href="http://www.fahrrad-strebel.de/" target="_blank"> home page</a>'} ,
+            {externalGraphic: 'cycle-md.png', graphicHeight: 22, graphicWidth: 15, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	
+	var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.425327, 48.996030).transform(epsg4326, projectTo),
+            {description:'Bike Lager<br><a href="http://www.bikelager.de/" target="_blank"> home page</a>'} ,
+            {externalGraphic: 'cycle-md.png', graphicHeight: 22, graphicWidth: 15, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	
+	var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.397689, 49.006954).transform(epsg4326, projectTo),
+            {description:'Rad Und Tat<br><a href="http://www.radundtat.net/" target="_blank"> home page</a>'} ,
+            {externalGraphic: 'cycle-md.png', graphicHeight: 22, graphicWidth: 15, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	
+	
+	var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.375974, 49.009150).transform(epsg4326, projectTo),
+            {description:'Mike Bike<br><a href="http://www.mikes-bike.de/" target="_blank"> home page</a>'} ,
+            {externalGraphic: 'cycle-md.png', graphicHeight: 22, graphicWidth: 15, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	
+	
+	
+	
+	
+	
+	  //hotels
+	  var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.397518, 48.994228).transform(epsg4326, projectTo),
+            {description:'A&O<br><a href="http://www.aohostels.com/de/karlsruhe/karlsruhe-hauptbahnhof/" target="_blank"> home page</a>'} ,
+            {externalGraphic: 'hotel.jpg', graphicHeight: 25, graphicWidth: 17, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	  	  var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.406616, 49.006166).transform(epsg4326, projectTo),
+            {description:'Blankenburg Hotel<br><a href="http://www.karlsruhehotel.de/" target="_blank"> home page</a>'} ,
+            {externalGraphic: 'hotel.jpg', graphicHeight: 25, graphicWidth: 17, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+
+		  var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.385330, 49.007405).transform(epsg4326, projectTo),
+            {description:'Acora Hotel<br><a href="http://acora.de/" target="_blank"> home page</a>'} ,
+            {externalGraphic: 'hotel.jpg', graphicHeight: 25, graphicWidth: 17, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	
+	 var feature = new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(  8.395114, 49.000761).transform(epsg4326, projectTo),
+            {description:'Santo Hotel<br><a href="http://www.hotel-santo.de/" target="_blank"> home page</a>'} ,
+            {externalGraphic: 'hotel.jpg', graphicHeight: 25, graphicWidth: 17, graphicXOffset:-12, graphicYOffset:-25  }
+        );    
+    vectorLayer.addFeatures(feature);
+	
+	
+
+    map.addLayer(vectorLayer);
+ 
+    
+    //Add a selector control to the vectorLayer with popup functions
+    var controls = {
+      selector: new OpenLayers.Control.SelectFeature(vectorLayer, { onSelect: createPopup, onUnselect: destroyPopup })
+    };
+
+    function createPopup(feature) {
+      feature.popup = new OpenLayers.Popup.FramedCloud("pop",
+          feature.geometry.getBounds().getCenterLonLat(),
+          null,
+          '<div class="markerContent">'+feature.attributes.description+'</div>',
+          null,
+          true,
+          function() { controls['selector'].unselectAll(); }
+      );
+      //feature.popup.closeOnMove = true;
+      map.addPopup(feature.popup);
+    }
+
+    function destroyPopup(feature) {
+      feature.popup.destroy();
+      feature.popup = null;
+    }
+    
+    map.addControl(controls['selector']);
+    controls['selector'].activate();
+      
+  </script>
+  <div id="explanation">Popup bubbles appearing when you click a marker. The marker content is set within a feature attribute</div>
+</body></html>
